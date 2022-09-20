@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+
+<h1>Product List</h1>
+
+{% for product in product_list %}
+
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">{{ product.name }}</span>
+            <p>Quantity : {{ product.quantity }}</p>
+            <p>price : ${{product.price }}</p>
+        </div>
+    </div>
+
+{% endfor %}
+
+{% endblock %}
