@@ -1,0 +1,19 @@
+.collection{
+    border-style: none;
+}
+.main{
+    width:'100%';
+}
+.sidebar{
+    
+    padding-right: 15%;
+    padding-left: 10%;
+}
+.loginBtn{
+    height:100% !important;
+    margin: auto;
+    background-color: aqua;
+    width: 100px;
+    align-items: center !important;
+    text-align-last: center;
+}
