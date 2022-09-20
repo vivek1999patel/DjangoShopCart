@@ -4,8 +4,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var instances = M.Slider.init(elems, options);
   });
 
-  // Or with jQuery
 
-  $(document).ready(function(){
-    $('.slider').slider();
-  });
+  var tabOptions ={swipeable:true}
+  el= document.querySelector('.tabs')
+  var instance = M.Tabs.init(el, tabOptions);
+  
+
