@@ -50,6 +50,15 @@ class ProductCreate(LoginRequiredMixin, CreateView):
   fields = '__all__'
 
 
+# Product Details
+def product_detail(request, product_id):
+  product = Product.objects.get(id=product_id)
+  userId = request.user.id
+
+  return render(request, 'product/detail.html', {
+    'product': product,
+    'userId': userId
+  })
 
 
 def order_by_alphabet(request):
