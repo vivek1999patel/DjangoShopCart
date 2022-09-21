@@ -10,11 +10,21 @@
         <p>quantity: {{ product.quantity }}</p>
         {% else %}
         <p>Out Of Stock</p>
-        {% endif %}
-
-        {% if user.is_authenticated and user.is_superuser %}
+        {% endif %} {% if user.is_authenticated and user.is_superuser %}
         <a href="{% url 'product_update' product.id %}">Edit</a>
         <a href="{% url 'product_delete' product.id %}">Delete</a>
+        {% elif user.is_authenticated %}
+        <form
+          action="{% url 'assoc_product' userId product.id %}"
+          method="POST"
+        >
+          {% csrf_token %}
+          <button type="submit" class="btn">Add TO Cart</button>
+        </form>
+        {% else %}
+        <a href="{% url 'product_loggedIn_detail' product.id %}"
+          ><button class="btn">Add To Cart</button></a
+        >
         {% endif %}
       </div>
     </div>
