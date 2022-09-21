@@ -1,6 +1,3 @@
-# from django.shortcuts import render,redirect
-# from django.views.generic.edit import CreateView, UpdateView, DeleteView
-# from django.views.generic import ListView, DetailView
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Product, Cart
@@ -42,17 +39,14 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
+# List All Products
 class ProductList(ListView):
     model = Product
 
+# Create Product
 class ProductCreate(LoginRequiredMixin, CreateView):
   model = Product
   fields = '__all__'
-
-# Update Product
-class ProductUpdate(LoginRequiredMixin, UpdateView):
-  model = Product
-  fields = ['name', 'price', 'desc', 'quantity']
 
 # Product Details
 def product_detail(request, product_id):
@@ -64,6 +58,15 @@ def product_detail(request, product_id):
     'userId': userId
   })
 
+# Update Product
+class ProductUpdate(LoginRequiredMixin, UpdateView):
+  model = Product
+  fields = ['name', 'price', 'desc', 'quantity']
+
+# Delete Product
+class ProductDelete(LoginRequiredMixin, DeleteView):
+  model = Product
+  success_url = '/all_products/'
 
 def order_by_alphabet(request):
 
