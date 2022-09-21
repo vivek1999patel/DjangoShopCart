@@ -22,3 +22,10 @@ class Product(models.Model):
 class Cart(models.Model):
     product = models.ManyToManyField(Product)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class Photo(models.Model):
+    url = models.CharField(max_length=200)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Photo for cat_id: {self.product_id} @{self.url}"

@@ -31,5 +31,8 @@ urlpatterns = [
 
   path('cart/', views.cart, name = 'cart' ),
 
+  # Add Image
+  path('all_product/<int:product_id>/add_photo/', views.add_photo, name='add_photo')
+
 
 ]
