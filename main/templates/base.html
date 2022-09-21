@@ -26,8 +26,10 @@
                 <li><a href="{% url 'product_create' %}">Add A Product</a></li>
                 <li><a href="{% url 'logout' %}">Log Out</a></li>
                 {% else %}
-
+                
+                <li><a href="{% url 'cart'%}">View Cart</a></li>
                 <li><a href="{% url 'logout' %}">Log Out</a></li>
+                
                 {% endif %}
                 {% else %}
 

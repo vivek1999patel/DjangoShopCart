@@ -17,8 +17,10 @@ def home (request):
     prod = Product.objects.all()
     print(prod)
     return render(request, 'home.html')
+
 def products(request):
     return render(request,'shop/index.html')
+    
 def user(request):
     return render(request,'shop/user/index.html')
 
@@ -67,6 +69,7 @@ def order_by_decreasing_price(request):
     "productList": productList
   })
 
+
 def order_by_increasing_price(request):
 
   productList = Product.objects.all().order_by('price')
@@ -74,3 +77,23 @@ def order_by_increasing_price(request):
   return render(request, 'main/order_by_product_price_or_alphabet.html', {
     "productList": productList
   })
+
+@login_required
+def cart(request):
+
+    userId = request.user.id
+    current_user = request.user.id
+
+    exist = Cart.objects.filter(user_id = current_user)
+    
+
+    if exist:
+      print(exist)
+    else:
+      c = Cart(user_id = current_user)
+      c.save()
+
+    cart= Cart.objects.get(user_id = current_user)
+
+   
+    return render(request, 'product/cart.html', {'cart': cart, 'userId': userId})
