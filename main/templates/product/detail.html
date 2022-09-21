@@ -10,10 +10,20 @@
         <p>quantity: {{ product.quantity }}</p>
         {% else %}
         <p>Out Of Stock</p>
-        {% endif %} {% if user.is_authenticated and user.is_superuser %}
+        {% endif %} {% if user.is_authenticated and user.is_superuser %}\
+        {% for photo in product.photo_set.all %}
+        <img class="responsive-img card-panel" src="{{photo.url}}" />
+        {% empty %}
+        <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+        {% endfor %}
         <a href="{% url 'product_update' product.id %}">Edit</a>
         <a href="{% url 'product_delete' product.id %}">Delete</a>
         {% elif user.is_authenticated %}
+        {% for photo in product.photo_set.all %}
+        <img class="responsive-img card-panel" src="{{photo.url}}" />
+        {% empty %}
+        <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+        {% endfor %}
         <form
           action="{% url 'assoc_product' userId product.id %}"
           method="POST"
@@ -22,6 +32,11 @@
           <button type="submit" class="btn">Add TO Cart</button>
         </form>
         {% else %}
+        {% for photo in product.photo_set.all %}
+        <img class="responsive-img card-panel" src="{{photo.url}}" />
+        {% empty %}
+        <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+        {% endfor %}
         <a href="{% url 'product_loggedIn_detail' product.id %}"
           ><button class="btn">Add To Cart</button></a
         >
