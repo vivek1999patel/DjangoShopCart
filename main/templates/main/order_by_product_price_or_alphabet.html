@@ -6,17 +6,16 @@
 <a href="{% url 'products_index_increasing' %}"><button class="btn">Order By Increasing price</button></a>
 
 
+
 <h1>Product List</h1>
 
-{% for product in product_list %}
+{% for product in productList %}
 
     <div class="card">
         <div class="card-content">
             <span class="card-title">{{ product.name }}</span>
-            <p>Description : {{ product.desc }}</p>
             <p>Quantity : {{ product.quantity }}</p>
             <p>price : ${{product.price }}</p>
-            <a href=""><button class="btn"> View Details </button></a>
         </div>
     </div>
 

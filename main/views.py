@@ -14,9 +14,13 @@ from django.utils.timezone import datetime
 
 # Create your views here.
 def home (request):
+    prod = Product.objects.all()
+    print(prod)
     return render(request, 'home.html')
+
 def products(request):
     return render(request,'shop/index.html')
+    
 def user(request):
     return render(request,'shop/user/index.html')
 
@@ -40,3 +44,56 @@ def signup(request):
 
 class ProductList(ListView):
     model = Product
+
+class ProductCreate(LoginRequiredMixin, CreateView):
+  model = Product
+  fields = '__all__'
+
+
+
+
+def order_by_alphabet(request):
+
+  productList = Product.objects.all().order_by('name')
+
+  return render(request, 'main/order_by_product_price_or_alphabet.html', {
+    "productList": productList
+  })
+
+
+def order_by_decreasing_price(request):
+
+  productList = Product.objects.all().order_by('-price')
+
+  return render(request, 'main/order_by_product_price_or_alphabet.html', {
+    "productList": productList
+  })
+
+
+def order_by_increasing_price(request):
+
+  productList = Product.objects.all().order_by('price')
+
+  return render(request, 'main/order_by_product_price_or_alphabet.html', {
+    "productList": productList
+  })
+
+@login_required
+def cart(request):
+
+    userId = request.user.id
+    current_user = request.user.id
+
+    exist = Cart.objects.filter(user_id = current_user)
+    
+
+    if exist:
+      print(exist)
+    else:
+      c = Cart(user_id = current_user)
+      c.save()
+
+    cart= Cart.objects.get(user_id = current_user)
+
+   
+    return render(request, 'product/cart.html', {'cart': cart, 'userId': userId})
