@@ -1,0 +1,89 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=`, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href='{%static "css/materialize.css" %}'>
+    <link rel="stylesheet" type="text/css" href='{%static "css/style.css" %}'>
+    <script src="{% static 'js/materialize.js' %}"></script>
+    <script defer type="text/javascript" src="{% static 'js/script.js' %}"></script>
+    <title>Shop</title>
+</head>
+<body>
+    <header class='navbar-fixed'>
+        <nav>
+            <div class="nav-wrapper">
+              <a href="/" class="brand-logo">Django Shop</a>
+              <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="/">Home</a></li>
+                <li ><a href="{% url 'products_index' %}">All Products</a></li>
+                <!-- <li><a href="/products/">Products</a></li> -->
+                {% if user.is_authenticated %}
+                {% if user.is_superuser %}
+                <li><a href="{% url 'product_create' %}">Add A Product</a></li>
+                <li><a href="{% url 'logout' %}">Log Out</a></li>
+                {% else %}
+                
+                <li><a href="{% url 'cart'%}">View Cart</a></li>
+                <li><a href="{% url 'logout' %}">Log Out</a></li>
+                
+                {% endif %}
+                {% else %}
+
+                <li class='loginBtn'><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                {% endif %}
+              </ul>
+
+     
+            </div>
+          </nav>
+    </header>
+    
+    <div class="main">
+      
+        <div class="col s12">
+          {% block content %}
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+    
+    
+</body>
+<footer>
+  <footer class="page-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Policies</h5>
+          <ul>
+            <li><a class="grey-text text-lighten-3" href="#!">Privacy Policy</a></li>
+            <li><a class="grey-text text-lighten-3" href="#!">Terms & Conditions</a></li>
+            <li><a class="grey-text text-lighten-3" href="#!">Returns & Exchanges</a></li>
+            <li><a class="grey-text text-lighten-3" href="#!">Product Warranty</a></li>
+          </ul>
+        </div>
+        <div class="col l4 offset-l2 s12">
+          <h5 class="white-text">Menu</h5>
+          <ul>
+            <li><a class="grey-text text-lighten-3" href="#!">Home</a></li>
+            <li><a class="grey-text text-lighten-3" href="#!">Products</a></li>
+            <li><a class="grey-text text-lighten-3" href="#!">My Account</a></li>
+            <li><a class="grey-text text-lighten-3" href="#!">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      © 2022 DjangoShop. All rights reserved. 
+      <a class="grey-text text-lighten-4 right" href="#!"></a>
+      </div>
+    </div>
+  </footer>
+</footer>
+</html>

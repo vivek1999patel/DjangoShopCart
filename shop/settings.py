@@ -79,6 +79,8 @@ DATABASES = {
     'default': {
          'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'groceryapp',
+        'USER':'postgres',
+        'PASSWORD':'dender55'
     }
 }
 
