@@ -19,11 +19,24 @@
               <a href="/" class="brand-logo">Django Shop</a>
               <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="/">Home</a></li>
-                <li><a href="/products/">Products</a></li>
                 <li ><a href="{% url 'products_index' %}">All Products</a></li>
+                <!-- <li><a href="/products/">Products</a></li> -->
+                {% if user.is_authenticated %}
+                {% if user.is_superuser %}
+                <li><a href="{% url 'product_create' %}">Add A Product</a></li>
+                <li><a href="{% url 'logout' %}">Log Out</a></li>
+                {% else %}
+
+                <li><a href="{% url 'logout' %}">Log Out</a></li>
+                {% endif %}
+                {% else %}
+
                 <li class='loginBtn'><a href="{% url 'login' %}">Login</a></li>
                 <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                {% endif %}
               </ul>
+
+     
             </div>
           </nav>
     </header>
