@@ -14,7 +14,7 @@
                 </span>
                 <form action="{% url 'unassoc_product' userId product.id %}" method="post">
                   {% csrf_token %}
-                  <button type="submit" class="btn">Unreserve</button>
+                  <button type="submit" class="btn">Remove From Cart</button>
               </form>
              </div>
             </div>

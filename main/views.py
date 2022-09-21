@@ -68,6 +68,33 @@ class ProductDelete(LoginRequiredMixin, DeleteView):
   model = Product
   success_url = '/all_products/'
 
+# Add To Cart Product
+def assoc_product(request, user_id, product_id):
+  cart = Cart.objects.filter(user_id=user_id)
+  if cart:
+    print(cart)
+  else:
+    c = Cart(user_id=user_id)
+    c.save()
+
+  Cart.objects.get(user_id=user_id).product.add(product_id)
+  return redirect('cart')
+
+# Remove From Cart
+def unassoc_product(request, user_id, product_id):
+    Cart.objects.get(user_id=user_id).product.remove(product_id)
+    return redirect('cart')
+
+# Add-To-Cart When User Is Not Logged In
+def product_loggedIn_detail(request, product_id):
+    product = Product.objects.get(id=product_id)
+    userId = request.user.id
+
+    return render(request, 'product/detail.html', {
+        'product': product,
+        'userId': userId
+    })
+
 def order_by_alphabet(request):
 
   productList = Product.objects.all().order_by('name')
