@@ -49,6 +49,10 @@ class ProductCreate(LoginRequiredMixin, CreateView):
   model = Product
   fields = '__all__'
 
+# Update Product
+class ProductUpdate(LoginRequiredMixin, UpdateView):
+  model = Product
+  fields = ['name', 'price', 'desc', 'quantity']
 
 # Product Details
 def product_detail(request, product_id):
