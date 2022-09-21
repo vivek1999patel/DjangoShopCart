@@ -12,7 +12,7 @@ urlpatterns = [
 
   #products
   path('all_products/', views.ProductList.as_view(), name='products_index'),
-
+  path('all_products/<int:product_id>/', views.product_detail, name='product_detail'),
 
   path('product/create/', views.ProductCreate.as_view(), name='product_create'),
 
