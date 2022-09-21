@@ -86,6 +86,7 @@ def unassoc_product(request, user_id, product_id):
     return redirect('cart')
 
 # Add-To-Cart When User Is Not Logged In
+@login_required
 def product_loggedIn_detail(request, product_id):
     product = Product.objects.get(id=product_id)
     userId = request.user.id
