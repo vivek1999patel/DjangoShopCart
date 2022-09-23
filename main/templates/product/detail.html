@@ -10,7 +10,7 @@
         <p>quantity: {{ product.quantity }}</p>
         {% else %}
         <p>Out Of Stock</p>
-        {% endif %} {% if user.is_authenticated and user.is_superuser %}\
+        {% endif %} {% if user.is_authenticated and user.is_superuser %}
         {% for photo in product.photo_set.all %}
         <img class="responsive-img card-panel" src="{{photo.url}}" />
         {% empty %}
