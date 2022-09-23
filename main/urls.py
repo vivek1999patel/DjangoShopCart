@@ -7,8 +7,7 @@ urlpatterns = [
   path('user/',views.user, name='user'),
 
   # User SignIn/LogIn
-  # path('accounts/login', include('django.contrib.auth.urls')),
-  path('login/', views.login, name='login'),
+  path('accounts/', include('django.contrib.auth.urls')),
   path('accounts/signup/', views.signup, name='signup'),
 
   # Products

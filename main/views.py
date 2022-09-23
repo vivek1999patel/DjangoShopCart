@@ -1,4 +1,3 @@
-from main.forms import LoginForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Product, Cart, Photo
@@ -154,23 +153,3 @@ def add_photo(request, product_id):
         except:
             print('An error occurred uploading file to S3')
     return redirect('products_index')
-
-    #-*- coding: utf-8 -*-
-
-
-def login(request):
-   
-   username = "not logged in"
-   
-   if request.method == "POST":
-      #Get the posted form
-      print('we are on login form')
-      MyLoginForm = LoginForm(request.POST)
-      
-      if MyLoginForm.is_valid():
-         print('login form is valid')
-         username = MyLoginForm.cleaned_data['user']
-   else:
-      MyLoginForm = LoginForm()
-      	
-   return redirect('home')
