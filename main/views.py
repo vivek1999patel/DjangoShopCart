@@ -1,3 +1,4 @@
+from main.forms import LoginForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Product, Cart, Photo
@@ -18,7 +19,7 @@ BUCKET = 'backendgrocery'
 def home (request):
     prod = Product.objects.all()
     print(prod)
-    return render(request, 'home.html')
+    return render(request,'main/product_list.html')
 
 def products(request):
     return render(request,'shop/index.html')
@@ -43,7 +44,7 @@ def signup(request):
 
 # List All Products
 class ProductList(ListView):
-    model = Product
+  model = Product
 
 # Create Product
 class ProductCreate(LoginRequiredMixin, CreateView):
@@ -62,12 +63,12 @@ def product_detail(request, product_id):
 
 # Update Product
 class ProductUpdate(LoginRequiredMixin, UpdateView):
-  model = Product
+  model  = Product
   fields = ['name', 'price', 'desc', 'quantity']
 
 # Delete Product
 class ProductDelete(LoginRequiredMixin, DeleteView):
-  model = Product
+  model       = Product
   success_url = '/all_products/'
 
 # Add To Cart Product
@@ -91,7 +92,7 @@ def unassoc_product(request, user_id, product_id):
 @login_required
 def product_loggedIn_detail(request, product_id):
     product = Product.objects.get(id=product_id)
-    userId = request.user.id
+    userId  = request.user.id
 
     return render(request, 'product/detail.html', {
         'product': product,
@@ -103,7 +104,11 @@ def order_by_alphabet(request):
   return render(request, 'main/order_by_product_price_or_alphabet.html', {
     "productList": productList
   })
-
+def order_by_alphabet_ztoa(request):
+  productList = Product.objects.all().order_by('-name')
+  return render(request, 'main/order_by_product_price_or_alphabet.html', {
+    "productList": productList
+  })
 
 def order_by_decreasing_price(request):
   productList = Product.objects.all().order_by('-price')
@@ -153,3 +158,6 @@ def add_photo(request, product_id):
         except:
             print('An error occurred uploading file to S3')
     return redirect('products_index')
+
+    #-*- coding: utf-8 -*-
+

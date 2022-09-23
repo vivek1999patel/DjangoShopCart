@@ -1,24 +1,115 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
+<div class="slider">
+  <ul class="slides">
+    <li>
+      <img src="{%static 'img/1.jpg'%}">
+      <div class="caption center-align">
+        <h3>This is our big Tagline!</h3>
+        <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+      </div>
+    </li>
+    <li>
+      <img src="{%static 'img/2.jpg'%}">
+      <div class="caption left-align">
+        <h3>Left Aligned Caption</h3>
+        <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+      </div>
+    </li>
+    <li>
+      <img src="{%static 'img/3.jpg'%}">
+      <div class="caption right-align">
+        <h3>Right Aligned Caption</h3>
+        <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+      </div>
+    </li>
+    <li>
+      <img src="{%static 'img/4.jpg'%}">
+      <div class="caption center-align">
+        <h3>This is our big Tagline!</h3>
+        <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+      </div>
+    </li>
+  </ul>
+</div>
 
-<a href="{% url 'products_order_by_alphabet' %}"><button class="btn">Order By Alphabet</button></a>
-<a href="{% url 'products_index_decreasing' %}"><button class="btn">Order By Decreasing price</button></a>
-<a href="{% url 'products_index_increasing' %}"><button class="btn">Order By Increasing price</button></a>
-
-
-
-<h1>Product List</h1>
-
-{% for product in productList %}
-
-    <div class="card">
-        <div class="card-content">
-            <span class="card-title">{{ product.name }}</span>
-            <p>Quantity : {{ product.quantity }}</p>
-            <p>price : ${{product.price }}</p>
-        </div>
+<div class='row'>
+  <div class="col l2 offset-l1">
+    <h5>Home > Shop</h5>
+  </div>
+  <div class='col s12 l2 offset-l6'>
+    <div class="input-field">
+      <select
+        onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+        <option value="#">Select</option>
+        <optgroup label="Price">
+          <option value="{% url 'products_index_increasing' %}">Ascending</option></a>
+          <option value="{% url 'products_index_decreasing' %}">Descending</option>
+        </optgroup>
+        <optgroup label="Name">
+          <option value="{% url 'products_order_by_alphabet' %}">A to Z</option>
+          <option value="{% url 'products_order_by_alphabet_ztoa' %}">Z to A</option>
+        </optgroup>
+      </select>
+      <label>Sort by</label>
     </div>
+  </div>
+</div>
 
-{% endfor %}
+<div class="row">
+
+  <div class='col s2 offset-s1 hide-on-med-and-down'>
+
+    <div class="row">
+      <div class="collection sidebar">
+        <p class="flow-text" style="margin-top: 0px !important;">Categories</p>
+        <a href="#" class="collection-item">Electronics</a>
+        <a href="#" class="collection-item">Clothing</a>
+        <a href="#" class="collection-item">Home & Decor</a>
+        <a href="#" class="collection-item">Sports & Outdoor</a>
+      </div>
+    </div>
+  </div>
+  <div class='col s9'>
+    <div class='container'>
+      <div class="row">
+
+        {% for product in productList %}
+        <div class="col s12 m6 l4 xl3">
+          <div class="card small">
+
+            <div class="card-image waves-effect waves-block waves-light">
+              {% if product.photo_set.first.url %}
+              <a href="{% url 'product_detail' product.id%}"><img src="{{product.photo_set.first.url}}"></a>
+              {% else %}
+              <a href="{% url 'product_detail' product.id%}">
+                <img src="{%static 'img/no-product.png' %}">
+              </a>
+              {% endif %}
+
+            </div>
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4"><a href="{% url 'product_detail' product.id%}">
+                  <p class="prodTitle">{{ product.name }}</p>
+                </a></span>
+              <p>${{product.price }}</p>
+
+
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4 prodTitle">{{ product.name }}<i
+                  class="material-icons right">close</i></span>
+              <p>{{ product.desc }}</p>
+            </div>
+          </div>
+        </div>
+          {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
+
+<!-- sdflkjsdlkfdjslkfjdslkfdsjflkjsdlkj -->

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends 'base.html' %} {% block content %}
 
 <h1>Product Details</h1>
@@ -28,22 +29,112 @@
           action="{% url 'assoc_product' userId product.id %}"
           method="POST"
         >
+=======
+{% extends 'base.html' %}
+{% load static %} {% block content %}
+<div class="container">
+  <h1>{{ product.name }}</h1>
+  <div class="row">
+    <div class="col l7 m7 s7">
+      <div class="row">
+
+        <div class="col l11">
+          <div id="mainCarousel" class="carousel w-10/12 max-w-5xl mx-auto">
+            {% for photo in product.photo_set.all %}
+            <div class="carousel__slide" data-src="{{photo.url}}" data-fancybox="gallery">
+              <img class='responsive-img' src="{{photo.url}}" />
+            </div>
+            {% endfor %}
+          </div>
+          <div id="thumbCarousel" class="">
+            {% for photo in product.photo_set.all %}
+            <div class="carousel__slide">
+              <img class="responsive-img panzoom__content" src="{{photo.url}}" />
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <p class="float-text">{{ product.desc }}</p>
+        </div>
+      </div>
+
+    </div>
+    <div class="col l3 s12 m12 border">
+      <div class="row">
+        <h5>{{ product.name }}</h5>
+      </div>
+      <div class="row">
+        <table>
+          <tr>
+            <td>Quantity: </td>
+            <td>{% if product.quantity > 0 %}
+              <p>{{ product.quantity }}</p>
+              {% else %}
+              <p>Out Of Stock</p>
+              {%endif%}
+            </td>
+          </tr>
+          <tr>
+            <td>Sku:</td>
+            <td>{{product.id}}</td>
+          </tr>
+          <tr>
+            <td>Price</td>
+            <td>{{product.price}}</td>
+          </tr>
+        </table>
+
+      </div>
+      {% if user.is_authenticated and user.is_superuser %}
+      <div class="row">
+        <div class="col m12 l4"><a class='btn blue accent-3' href="{% url 'product_update' product.id %}">Edit</a></div>
+        <div class="col m12 l4"><a class='btn  red darken-1' href="{% url 'product_delete' product.id %}">Delete</a>
+        </div>
+        <div class="col m12 l4"><a class="btn modal-trigger" href="#upload">Upload Photo</a></div>
+
+        <div id="upload" class="modal resizeModal">
+          <div class="modal-content">
+            <div class="row">
+              <div class="col s12 center-align">
+                <h4 class="flow-text">Please Upload Your Photo</h4>
+              </div>
+            </div>
+            <div class="row  valign-wrapper">
+              <div class="col s12 center-align">
+                <form style="box-shadow:none ; background:none;" action="{% url 'add_photo' product.id %}"
+                  enctype="multipart/form-data" method="POST" class="card-panel">
+                  {% csrf_token %}
+
+                  <input type="file" name="photo-file" />
+                  <br /><br />
+                  <input type="submit" class="btn" value="Upload Photo" />
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% elif user.is_authenticated and not user.is_superuser %}
+        <form action="{% url 'assoc_product' userId product.id %}" method="POST">
+>>>>>>> 0abc180e337fac48a57e1b079dd0783793e05efe
           {% csrf_token %}
-          <button type="submit" class="btn">Add TO Cart</button>
+          <div class="col s12"><button type="submit" class="btn">Add to Cart</button></div>
         </form>
         {% else %}
-        {% for photo in product.photo_set.all %}
-        <img class="responsive-img card-panel" src="{{photo.url}}" />
-        {% empty %}
-        <div class="card-panel teal-text center-align">No Photos Uploaded</div>
-        {% endfor %}
-        <a href="{% url 'product_loggedIn_detail' product.id %}"
-          ><button class="btn">Add To Cart</button></a
-        >
-        {% endif %}
+        <a class="btn modal-trigger" href="{% url 'product_loggedIn_detail' product.id %}">Add to Cart</a>
+        {%endif%}
       </div>
+
     </div>
-  </div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
-{% endblock %}
+
+    {% endblock %}
+
+  

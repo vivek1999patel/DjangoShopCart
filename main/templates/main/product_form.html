@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-
-<h1>Add Product</h1>
-
+<div class="container">
+{%if object%}
+<h4>Edit {{object.name}}</h4>
+{%else%}
+<h4>Add Product</h4>
+{%endif%}
 
   <form action="" method="post">
     {% csrf_token %}
@@ -13,4 +15,5 @@
     </table>
     <input type="submit" value="Submit!" class="btn">
   </form>
+</div>
 {% endblock %}

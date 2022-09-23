@@ -1,43 +1,108 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
-
-<a href="{% url 'products_order_by_alphabet' %}"><button class="btn">Order By Alphabet</button></a>
-<a href="{% url 'products_index_decreasing' %}"><button class="btn">Order By Decreasing price</button></a>
-<a href="{% url 'products_index_increasing' %}"><button class="btn">Order By Increasing price</button></a>
-
-
-<h1>Product List</h1>
-
-{% for product in product_list %}
-
-    <div class="card">
-        <div class="card-content">
-            <span class="card-title">{{ product.name }}</span>
-            <p>Description : {{ product.desc }}</p>
-            <p>Quantity : {{ product.quantity }}</p>
-            <p>price : ${{product.price }}</p>
-            <!-- Insert Photo -->
-            {% for photo in product.photo_set.all %}
-            <img class="responsive-img card-panel" src="{{photo.url}}" />
-            {% empty %}
-            <div class="card-panel teal-text center-align">No Photos Uploaded</div>
-            {% endfor %} {% if user.is_authenticated and user.is_superuser %}
-            <form
-              action="{% url 'add_photo' product.id %}"
-              enctype="multipart/form-data"
-              method="POST"
-              class="card-panel"
-            >
-              {% csrf_token %}
-              <input type="file" name="photo-file" />
-              <br /><br />
-              <input type="submit" class="btn" value="Upload Photo" />
-            </form>
-            {% endif %}
-            <a href="{% url 'product_detail' product.id%}"><button class="btn"> View Details </button></a>
-        </div>
+<div class="slider">
+  <ul class="slides">
+    <li>
+      <img class='responsive-img' src="{%static 'img/1.png'%}">
+      <div class="caption left-align">
+      </div>
+    </li>
+    <li>
+      <img class='responsive-img' src="{%static 'img/3.png'%}">
+      <div class="caption right-align">
+      </div>
+    </li>
+    <li>
+      <img class='responsive-img' src="{%static 'img/4.png'%}">
+      <div class="caption center-align">
+      </div>
+    </li>
+    <li>
+      <img class='responsive-img' src="{%static 'img/5.png'%}">
+      <div class="caption center-align">
+      </div>
+    </li>
+    <li>
+      <img class='responsive-img' src="{%static 'img/6.png'%}">
+      <div class="caption center-align">
+      </div>
+    </li>
+  </ul>
+</div>
+<div class="spacer"></div>
+<div class='row'>
+  <div class="col l2 offset-l1">
+    <h5>Home > Shop</h5>
+  </div>
+  <div class='col s12 l2 offset-l6'>
+    <div class="input-field">
+      <select
+        onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+        <option value="#">Select</option>
+        <optgroup label="Price">
+          <option value="{% url 'products_index_increasing' %}">Ascending</option></a>
+          <option value="{% url 'products_index_decreasing' %}">Descending</option>
+        </optgroup>
+        <optgroup label="Name">
+          <option value="{% url 'products_order_by_alphabet' %}">A to Z</option>
+          <option value="{% url 'products_order_by_alphabet_ztoa' %}">Z to A</option>
+        </optgroup>
+      </select>
+      <label>Sort by</label>
     </div>
+  </div>
+</div>
 
-{% endfor %}
+<div class="row">
+  <div class='col s2 offset-s1 hide-on-med-and-down'>
 
+    <div class="row">
+      <div class="collection sidebar">
+        <p class="flow-text" style="margin-top: 0px !important;">Categories</p>
+        <a href="#" class="collection-item">Electronics</a>
+        <a href="#" class="collection-item">Clothing</a>
+        <a href="#" class="collection-item">Home & Decor</a>
+        <a href="#" class="collection-item">Sports & Outdoor</a>
+      </div>
+    </div>
+  </div>
+  <div class='col s9'>
+    <div class='container'>
+      <div class="row">
+
+        {% for product in product_list %}
+        <div class="col s12 m6 l4 xl3">
+          <div class="card small">
+
+            <div class="card-image waves-effect waves-block waves-light">
+              {% if product.photo_set.first.url %}
+              <a href="{% url 'product_detail' product.id%}"><img src="{{product.photo_set.first.url}}"></a>
+              {% else %}
+              <a href="{% url 'product_detail' product.id%}">
+                <img src="{%static 'img/no-product.png' %}">
+              </a>
+              {% endif %}
+
+            </div>
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4"><a href="{% url 'product_detail' product.id%}">
+                  <p class="prodTitle">{{ product.name }}</p>
+                </a></span>
+              <p>${{product.price }}</p>
+
+
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4 prodTitle">{{ product.name }}<i
+                  class="material-icons right">close</i></span>
+              <p>{{ product.desc }}</p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
