@@ -8,8 +8,13 @@
     <meta name="viewport" content="width=`, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href='{%static "css/materialize.css" %}'>
     <link rel="stylesheet" type="text/css" href='{%static "css/style.css" %}'>
+    <link rel="stylesheet" type="text/css" href='https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css'>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script type="text/javascript" src="{% static 'js/jquery-3.6.1.js' %}"></script>
     <script src="{% static 'js/materialize.js' %}"></script>
+    <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>    
+    <script type="module">
+    </script>
     <script defer type="text/javascript" src="{% static 'js/script.js' %}"></script>
     <title>Shop</title>
 </head>
@@ -20,98 +25,82 @@
               <a href="/" class="brand-logo">Django Shop</a>
               <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="/">Home</a></li>
-                <li><a href="/products/">Products</a></li>
-                <li class='loginBtn'><a class ='modal-trigger'href="#login">Login</a></li>
+                
+                <!-- <li><a href="/products/">Products</a></li> -->
+                {% if user.is_authenticated %}
+                {% if user.is_superuser %}
+                <li><a href="{% url 'product_create' %}">Add A Product</a></li>
+                <li><a href="{% url 'logout' %}">Log Out</a></li>
+                {% else %}
+                
+                <li><a href="{% url 'cart'%}">View Cart</a></li>
+                <li><a href="{% url 'logout' %}">Log Out</a></li>
+                
+                {% endif %}
+                {% else %}
+
+                <li id ='loginBtn' class='loginBtn'><a href="{%url 'login'%}">Login</a>
+                </li>
+                <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                {% endif %}
+              </ul>
+            </div>
+            
+          </nav>
+          <nav>
+            <div class="nav-wrapper">
+              <a href="/" class="brand-logo">Django Shop</a>
+              <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+              <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="/">Home</a></li>
+                
+                <!-- <li><a href="/products/">Products</a></li> -->
+                {% if user.is_authenticated %}
+                {% if user.is_superuser %}
+                <li><a href="{% url 'product_create' %}">Add A Product</a></li>
+                <li><a href="{% url 'logout' %}">Log Out</a></li>
+                {% else %}
+                
+                <li><a href="{% url 'cart'%}">View Cart</a></li>
+                <li><a href="{% url 'logout' %}">Log Out</a></li>
+                
+                {% endif %}
+                {% else %}
+
+                <li id ='loginBtn' class='loginBtn'><a href="{%url 'login'%}">Login</a>
+                </li>
+                <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                {% endif %}
               </ul>
             </div>
           </nav>
-           <!-- Modal Trigger -->
+        
+          
+          
+    </header><ul class="sidenav" id="mobile-demo">
+            <li>
+              <a href="/">Home</a></li>
+                
+                <!-- <li><a href="/products/">Products</a></li> -->
+                {% if user.is_authenticated %}
+                {% if user.is_superuser %}
+                <li><a href="{% url 'product_create' %}">Add A Product</a></li>
+                <li><a href="{% url 'logout' %}">Log Out</a></li>
+                {% else %}
+                
+                <li><a href="{% url 'cart'%}">View Cart</a></li>
+                <li><a href="{% url 'logout' %}">Log Out</a></li>
+                
+                {% endif %}
+                {% else %}
 
-  <!-- Modal Structure -->
-  <div id="login" class="modal">
-    <div class="modal-content">
-      <div class="row"><div class="col s2 offset-s5 center-align"><h4 class="flow-text">Login</h4></div></div>
-      <div class="row  valign-wrapper">
-        <form class="col s5" method="POST" action="{% url 'login' %}">
-          {% csrf_token %}
-          {{ form.as_p }}
-          <div class="row">
-            <div class="input-field col s12">
-              <i class="material-icons prefix">account_circle</i>
-              <input id="icon_prefix" type="text" class="validate">
-              <label for="icon_prefix">Username</label>
-              
-            </div>
-            </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <i class="material-icons prefix">vpn_key</i>
-              <input id="icon_telephone" type="password" class="validate">
-              <label for="icon_telephone">Password</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <input id="icon_telephone" type="submit" style='width: 100%;' class="btn" value="Login">
-            </div>
-          </div>
-          <input type="hidden" name="next" value="{{ next }}">
-        </form>
-        <div class="col s1"><p class="flow-text">or</p></div>          
-        <form class="col s5" method="POST" action="#">
-          <div class="row">
-            <div class="input-field col s12">
-              <i class="material-icons prefix">account_circle</i>
-              <input id="username" type="text" class="validate">
-              <label for="username">Username</label>
-            </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s12">
-                <i class="material-icons prefix">account_circle</i>
-                <input name='fullname' id="fullname" type="text" class="validate">
-                <label for="fullname">Fullname</label>
-              </div>
-              </div>
-              <div class="row">
-                <div class="input-field col s12">
-                  <i class="material-icons prefix">email</i>
-                  <input name='email'  id="email" type="email" class="validate">
-                  <label for="email">Email</label>
-                </div>
-                </div>
-            <div class="row">
-            <div class="input-field col s12">
-              <i class="material-icons prefix">vpn_key</i>
-              <input name='password' onkeyup="check()" autocomplete="new-password" id="password" type="password" class="validate">
-              <label for="password">Password</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <i class="material-icons prefix">vpn_key</i>
-              <input name='confirm_password' autocomplete="new-password" onkeyup="check()" id="confirm_password" type="password" class="validate">
-              <label for="confirm_password">Retype Your Password</label>
-              <span id='message'></span>
-            </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <input id="register" type="button" style="width:100%" class="btn" value="Register" disabled>
-            </div>
-          </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    <!-- <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-    </div> -->
-  </div>
-        </header>
-
-  <!-- Modal Structure -->
-
+                <li id ='loginBtn' class='loginBtn'><a href="{%url 'login'%}">Login</a>
+                </li>
+                <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                {% endif %}
+            
+          </ul>
+    
     <div class="main">
       
         <div class="col s12">
@@ -123,7 +112,7 @@
     
     
 </body>
-<footer>
+
   <footer class="page-footer">
     <div class="container">
       <div class="row">
@@ -154,5 +143,5 @@
       </div>
     </div>
   </footer>
-</footer>
+
 </html>

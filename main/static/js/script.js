@@ -1,3 +1,12 @@
+
+document.addEventListener('DOMContentLoaded', function() {
+  const options={}
+  var elems = document.querySelectorAll('.sidenav');
+  var instances = M.Sidenav.init(elems, options);
+});
+// $(document).ready(function(){
+//   $('.sidenav').sidenav();
+// });
 document.addEventListener('DOMContentLoaded', function() {
   let options={indicators:false}
   var elems = document.querySelectorAll('.slider');
@@ -42,3 +51,33 @@ var check = function() {
 
   }
 }
+// Initialise Carousel
+const mainCarousel = new Carousel(document.querySelector("#mainCarousel"), {
+  Dots: false,
+});
+
+// Thumbnails
+const thumbCarousel = new Carousel(document.querySelector("#thumbCarousel"), {
+  Sync: {
+    target: mainCarousel,
+    friction: 0,
+  },
+  Dots: false,
+  Navigation: false,
+  center: true,
+  slidesPerPage: 1,
+  infinite: false,
+});
+
+// Customize Fancybox
+Fancybox.bind('[data-fancybox="gallery"]', {
+  Carousel: {
+    on: {
+      change: (that) => {
+        mainCarousel.slideTo(mainCarousel.findPageForSlide(that.page), {
+          friction: 0,
+        });
+      },
+    },
+  },
+});

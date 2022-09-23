@@ -1,3 +1,4 @@
+from main.forms import LoginForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Product, Cart, Photo
@@ -18,7 +19,7 @@ BUCKET = 'backendgrocery'
 def home (request):
     prod = Product.objects.all()
     print(prod)
-    return render(request, 'home.html')
+    return render(request,'main/product_list.html')
 
 def products(request):
     return render(request,'shop/index.html')
@@ -103,7 +104,11 @@ def order_by_alphabet(request):
   return render(request, 'main/order_by_product_price_or_alphabet.html', {
     "productList": productList
   })
-
+def order_by_alphabet_ztoa(request):
+  productList = Product.objects.all().order_by('-name')
+  return render(request, 'main/order_by_product_price_or_alphabet.html', {
+    "productList": productList
+  })
 
 def order_by_decreasing_price(request):
   productList = Product.objects.all().order_by('-price')
@@ -153,3 +158,6 @@ def add_photo(request, product_id):
         except:
             print('An error occurred uploading file to S3')
     return redirect('products_index')
+
+    #-*- coding: utf-8 -*-
+
