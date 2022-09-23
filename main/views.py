@@ -44,7 +44,7 @@ def signup(request):
 
 # List All Products
 class ProductList(ListView):
-    model = Product
+  model = Product
 
 # Create Product
 class ProductCreate(LoginRequiredMixin, CreateView):
@@ -63,12 +63,12 @@ def product_detail(request, product_id):
 
 # Update Product
 class ProductUpdate(LoginRequiredMixin, UpdateView):
-  model = Product
+  model  = Product
   fields = ['name', 'price', 'desc', 'quantity']
 
 # Delete Product
 class ProductDelete(LoginRequiredMixin, DeleteView):
-  model = Product
+  model       = Product
   success_url = '/all_products/'
 
 # Add To Cart Product
@@ -92,7 +92,7 @@ def unassoc_product(request, user_id, product_id):
 @login_required
 def product_loggedIn_detail(request, product_id):
     product = Product.objects.get(id=product_id)
-    userId = request.user.id
+    userId  = request.user.id
 
     return render(request, 'product/detail.html', {
         'product': product,

@@ -3,9 +3,7 @@
 {% block content %}
 <div class="container">  
 <h4>Delete</h4>
-
   <p class="flow-text">Are you sure you want to delete <span class="bold">{{ object.name }}</span>?</p>
-
   <form action="" method="POST">
     {% csrf_token %}
     <input type="submit" value="Yes - Delete!" class="btn">

@@ -30,6 +30,7 @@ urlpatterns = [
   path('products/alphabet=asc', views.order_by_alphabet, name='products_order_by_alphabet'),
   path('products/alphabet=desc', views.order_by_alphabet_ztoa, name='products_order_by_alphabet_ztoa'),
 
+  # Cart
   path('cart/', views.cart, name = 'cart' ),
 
   # Add Image
