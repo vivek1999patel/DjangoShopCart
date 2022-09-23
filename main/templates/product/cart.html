@@ -13,6 +13,7 @@
               <th>Name</th>
               <th>Quantity</th>
               <th>Price</th>
+              
             </tr>
           </thead>
           <tbody>
@@ -27,9 +28,10 @@
               {% endif %}</td>
               <td>{{ product.name }} </td>
               <td>{{ product.quantity }} </td>
+              <td>{{product.price}}</td>
               <td><form action="{% url 'unassoc_product' userId product.id %}" method="post">
                   {% csrf_token %}
-                  <button type="submit" class="btn">Remove</button>
+                  <button type="submit" class="btn deep-orange accent-4">Remove</button>
               </form></td>
             </tr>{% endfor %}
           </tbody>
