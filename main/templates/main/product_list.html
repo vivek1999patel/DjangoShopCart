@@ -4,36 +4,33 @@
 <div class="slider">
   <ul class="slides">
     <li>
-      <img src="{%static 'img/1.jpg'%}">
-      <div class="caption center-align">
-        <h3>This is our big Tagline!</h3>
-        <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-      </div>
-    </li>
-    <li>
-      <img src="{%static 'img/2.jpg'%}">
+      <img class='responsive-img' src="{%static 'img/1.png'%}">
       <div class="caption left-align">
-        <h3>Left Aligned Caption</h3>
-        <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
       </div>
     </li>
     <li>
-      <img src="{%static 'img/3.jpg'%}">
+      <img class='responsive-img' src="{%static 'img/3.png'%}">
       <div class="caption right-align">
-        <h3>Right Aligned Caption</h3>
-        <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
       </div>
     </li>
     <li>
-      <img src="{%static 'img/4.jpg'%}">
+      <img class='responsive-img' src="{%static 'img/4.png'%}">
       <div class="caption center-align">
-        <h3>This is our big Tagline!</h3>
-        <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+      </div>
+    </li>
+    <li>
+      <img class='responsive-img' src="{%static 'img/5.png'%}">
+      <div class="caption center-align">
+      </div>
+    </li>
+    <li>
+      <img class='responsive-img' src="{%static 'img/6.png'%}">
+      <div class="caption center-align">
       </div>
     </li>
   </ul>
 </div>
-
+<div class="spacer"></div>
 <div class='row'>
   <div class="col l2 offset-l1">
     <h5>Home > Shop</h5>
@@ -57,12 +54,7 @@
   </div>
 </div>
 
-<!-- <a href="{% url 'products_order_by_alphabet' %}"><button class="btn">Order By Alphabet</button></a>
-<a href="{% url 'products_index_decreasing' %}"><button class="btn">Order By Decreasing price</button></a>
-<a href="{% url 'products_index_increasing' %}"><button class="btn">Order By Increasing price</button></a> -->
-
 <div class="row">
-
   <div class='col s2 offset-s1 hide-on-med-and-down'>
 
     <div class="row">
@@ -108,15 +100,9 @@
             </div>
           </div>
         </div>
-
-
-
-
-
         {% endfor %}
-        </div>
       </div>
     </div>
+  </div>
 </div>
-
-    {% endblock %}
+{% endblock %}
